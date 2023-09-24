@@ -32,10 +32,9 @@ def chmod_files():
     cwd = os.getcwd()
     
     for filename in filenames:
-        print(filename)
         output = subprocess.run(["chmod", "+x", cwd + "/" + filename], check=True)
         if output.returncode != 0:
-            raise RuntimeError(f"Failed to chmod {filename}")
+            raise RuntimeError(f"Failed to chmod:\n{filename}")
 
 chmod_files()        
 
@@ -66,26 +65,33 @@ logger = init_logger()
 subprocesses ={
     "no_cuda": [
             ["sudo", "bash", "install/environment.sh"],
-            ["python", "-m", "pip", "install", "--upgrade", "pip", "setuptools", "wheel", "-q"], 
             ["sudo", "apt", "install", "build-essential", "-y", "-q"], 
+            ["python", "-m", "pip", "install", "--upgrade", "pip", "setuptools", "wheel", "-q"], 
+            ["pip", "install", "ffmpeg", "-q"],
             ["pip", "install", "gradio", "-q"],
             ["pip", "install", "elevenlabs", "-q"], 
             ["pip", "install", "git+https://github.com/openai/whisper.git", "-q", "--no-deps"], 
             ["pip", "install", "git+https://github.com/KillianLucas/open-interpreter.git", "-q"],
-            ["pip", "install", "-r", "requirements-whisper.txt", "-q", "--no-deps"]
+            ["pip", "install", "-r", "requirements-whisper.txt", "-q", "--no-deps"],
+            ["pip", "install", "-r", "requirements.txt", "-q"]
         ],
     "cuda-ubuntu2004":[
             ["sudo", "bash", "install/environment.sh"],
-            ["sudo", "bash", "install/cuda-ubuntu2004.sh"]
+            ["sudo", "bash", "install/cuda-ubuntu2004.sh"],
         ],
     "cuda-ubuntu2204":[
             ["sudo", "bash", "install/environment.sh"],
-            ["sudo", "bash", "install/cuda-ubuntu2204.sh"]
+            ["sudo", "bash", "install/cuda-ubuntu2204.sh"],
         ],
     "cuda-wsl": [
             ["sudo", "bash", "install/environment.sh"],
-            ["sudo", "bash", "install/cuda-wsl.sh"]
+            ["sudo", "bash", "install/cuda-wsl.sh"],
         ],
+    "cuda-windows": [
+        ["choco install ffmpeg"],
+        ["curl", "--proto", "'=https'", "--tlsv1.2", "-sSf", "https://sh.rustup.rs", "|", "sh"],
+        []
+    ]
 
 }
 

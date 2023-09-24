@@ -49,7 +49,7 @@ def run_installer(selected_packages: str, subprocess_dict: Dict[str, List[List[s
     logger.info("running_installer")
     install_packages("no_cuda", subprocess_dict, loguru)
     #see logger message
-    logger.info("The warning about openai-whisper's requirements is normal and not an error. this is corrected in the next step which installs the requirements individually to allow users to select their cuda version. You can safely ignore that warning.")
+    logger.warning("The warning about openai-whisper's requirements is normal and not an error. this is corrected in the next step which installs the requirements individually to allow users to select their cuda version. You can safely ignore that warning.")
     if selected_packages == "no_cuda":
         return
     install_packages(selected_packages, subprocess_dict, loguru)

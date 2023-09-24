@@ -26,10 +26,13 @@ sudo mv cuda-wsl-ubuntu.pin /etc/apt/preferences.d/cuda-repository-pin-600
 # Install CUDA
 
 # Check if the local installer is already downloaded if not download it
-sudo bash install/is_file.sh cuda-repo-wsl-ubuntu-12-2-local_12.2.1-1_amd64.deb https://developer.download.nvidia.com/compute/cuda/12.2.1/local_installers/cuda-repo-wsl-ubuntu-12-2-local_12.2.1-1_amd64.deb
+if command -v nvcc &> /dev/null
+    then
+        sudo bash install/is_file.sh cuda-repo-wsl-ubuntu-12-2-local_12.2.1-1_amd64.deb https://developer.download.nvidia.com/compute/cuda/12.2.1/local_installers/cuda-repo-wsl-ubuntu-12-2-local_12.2.1-1_amd64.deb
+fi
 
 # Unpack and install
-sudo dpkg -i cuda-repo-wsl-ubuntu-12-2-local_12.2.1-1_amd64.deb
+sudo dpkg -i cuda-repo-wsl-ubuntu-12-2-local_12.2.2-1_amd64.deb
 sudo cp /var/cuda-repo-wsl-ubuntu-12-2-local/cuda-*-keyring.gpg /usr/share/keyrings/
 sudo apt-get update
 sudo apt-get -y install cuda
@@ -44,3 +47,8 @@ else
     echo "CUDA is not available. Instillation failed"
 fi
 
+# Remove local installer
+if cuda-repo-wsl-ubuntu-12-2-local_12.2.1-1_amd64.deb
+    then
+        sudo rm cuda-repo-wsl-ubuntu-12-2-local_12.2.1-1_amd64.deb
+fi

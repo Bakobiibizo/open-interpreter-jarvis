@@ -1,0 +1,6 @@
+loguru
+alive-progress
+tiktoken==0.5.0 
+numpy==1.25
+llvmlite
+python-dotenv

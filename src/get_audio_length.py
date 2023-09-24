@@ -1,8 +1,7 @@
 import io
-from typing import Union, Iterator
 from pydub import AudioSegment
 
-def get_audio_length(audio_bytes: Union[bytes, Iterator[bytes]]):
+def get_audio_length(audio_bytes: bytes) -> float:
     """
     Calculate the length of an audio file.
 
@@ -16,12 +15,12 @@ def get_audio_length(audio_bytes: Union[bytes, Iterator[bytes]]):
     byte_io = io.BytesIO(audio_bytes)
 
     # Load the audio data with PyDub
-    audio = AudioSegment.from_mp3(byte_io)
+    audio: AudioSegment = AudioSegment.from_mp3(byte_io)
 
     # Get the length of the audio in milliseconds
-    length_ms = len(audio)
+    length_ms: int = len(audio)
 
     # Optionally convert to seconds
-    length_s = length_ms / 1000.0
+    length_s: float = length_ms / 1000.0
 
     return length_s

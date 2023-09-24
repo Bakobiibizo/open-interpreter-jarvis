@@ -1,7 +1,7 @@
 import argparse
 import subprocess
-from src.JARVIS import jarvis
-from src.JARVIS_text_only import jarvis_text
+from src.jarvis import jarvis
+from src.jarvis_text import jarvis_text
 
 
 def main(arguments: str)-> None:
