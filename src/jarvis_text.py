@@ -1,19 +1,10 @@
 import gradio as gr
-import interpreter
+from src.open_interpreter_api import get_interpreter
 
 from src.get_api_keys import get_api_keys
 
 
-def jarvis_text()-> None:
-    """
-    This function initializes a chatbot using the Jarvis library and launches a demo interface for interacting with the chatbot.
-    
-    Parameters:
-    None
-    
-    Returns:
-    None
-    """
+interpreter  = get_interpreter()
     
 with gr.Blocks() as demo:
     chatbot = gr.Chatbot()
@@ -63,6 +54,20 @@ with gr.Blocks() as demo:
     msg.submit(user, [msg, chatbot], [msg, chatbot], queue=False).then(
         bot, chatbot, chatbot
     )
+    
+def jarvis_text()-> None:
+    """
+    This function initializes a chatbot using the Jarvis library and launches a demo interface for interacting with the chatbot.
+    
+    Parameters:
+    None
+    
+    Returns:
+    None
+    """
 
-demo.queue()
-demo.launch(debug=True)
+    demo.queue()
+    demo.launch(debug=True)
+    
+if __name__ == "__main__":
+    jarvis_text()

@@ -1,8 +1,10 @@
 import argparse
 import subprocess
+import loguru
 from src.jarvis import jarvis
 from src.jarvis_text import jarvis_text
 
+logger = loguru.logger
 
 def main(arguments: str)-> None:
     """
@@ -14,11 +16,16 @@ def main(arguments: str)-> None:
     Returns:
         None: This function does not return anything.
     """
+    logger.info("Starting Jarvis")
+    logger.debug(f"\narguments - {arguments}\n")
     subprocess.run(["sudo", "bash", "install/activate-environment.sh"], check=True)
-    if arguments == "text":
-        jarvis_text()
-    else:
+    #if arguments == "text":
+    #    jarvis_text()
+    #else:
+    try:
         jarvis()
+    except RuntimeError as error:
+        logger.exception(f"There was an error durring the runtime of Jarvis{error}")
         
 def parseargs()-> argparse.Namespace:
     """

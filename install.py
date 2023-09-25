@@ -64,6 +64,7 @@ logger = init_logger()
 #This object's keys define the available packages to install. All packages get no_cuda first and then the correct version of torch is applied after all other instiliations. 
 subprocesses ={
     "no_cuda": [
+            
             ["sudo", "bash", "install/environment.sh"],
             ["sudo", "apt", "install", "build-essential", "-y", "-q"], 
             ["python", "-m", "pip", "install", "--upgrade", "pip", "setuptools", "wheel", "-q"], 
@@ -71,7 +72,7 @@ subprocesses ={
             ["pip", "install", "gradio", "-q"],
             ["pip", "install", "elevenlabs", "-q"], 
             ["pip", "install", "git+https://github.com/openai/whisper.git", "-q", "--no-deps"], 
-            ["pip", "install", "git+https://github.com/KillianLucas/open-interpreter.git", "-q"],
+            ["pip", "install", "git+https://github.com/Bakobiibizo/open-interpreter-jarvis.git@models", "q"],
             ["pip", "install", "-r", "requirements-whisper.txt", "-q", "--no-deps"],
             ["pip", "install", "-r", "requirements.txt", "-q"]
         ],
