@@ -30,9 +30,9 @@ def chmod_files():
         "install/is_file.sh"
     ]
     cwd = os.getcwd()
-    
+
     for filename in filenames:
-        output = subprocess.run(["chmod", "+x", cwd + "/" + filename], check=True)
+        output = subprocess.run(["chmod", "+x", f"{cwd}/{filename}"], check=True)
         if output.returncode != 0:
             raise RuntimeError(f"Failed to chmod:\n{filename}")
 

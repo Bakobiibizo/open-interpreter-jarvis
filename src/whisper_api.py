@@ -7,7 +7,7 @@ logger = loguru.logger
 model = whisper.load_model("base")
 logger.info("Model loaded.")
 
-def transcribe(audio:str)-> str:
+def transcribe(audio:str) -> str:
     """
     Transcribes the given audio using a pre-trained model.
     
@@ -27,21 +27,21 @@ def transcribe(audio:str)-> str:
 
     # detect the spoken language
     _, probs = model.detect_language(mel)
-    
+
     logger.debug(f"Detected language: {max(probs, key=probs.get)}")
 
     # decode the audio
     options = whisper.DecodingOptions()
-    
+
     result: DecodingResult = whisper.decode(model, mel, options)
-    
+
     transcription: str = result.text
-    
+
     logger.debug(f"\naudio - {audio}\nmel - {mel}\nprobs - {probs}\noptions - {options}\nresult - {result}\ntranscription - {transcription}")
-    
-    if transcription == "":
+
+    if not transcription:
         logger.exception(f"Could not transcribe audio: {audio}")
-        
+
     return transcription
 
 if __name__ == "__main__":

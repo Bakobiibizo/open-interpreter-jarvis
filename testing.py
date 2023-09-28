@@ -23,10 +23,7 @@ def get_audio_length(audio_bytes):
   # Get the length of the audio in milliseconds
   length_ms = len(audio)
 
-  # Optionally convert to seconds
-  length_s = length_ms / 1000.0
-
-  return length_s
+  return length_ms / 1000.0
 
 import whisper
 model = whisper.load_model("base")

@@ -37,17 +37,17 @@ with gr.Blocks() as demo:
 
             # Message
             if "message" in chunk:
-              if active_block_type != "message":
-                active_block_type = "message"
-              history[-1][1] += chunk["message"]
+                if active_block_type != "message":
+                  active_block_type = "message"
+                history[-1][1] += chunk["message"]
 
-              last_sentence += chunk["message"]
-              if any([punct in last_sentence for punct in ".?!\n"]):
-                yield history
-                speak(last_sentence)
-                last_sentence = ""
-              else:
-                yield history
+                last_sentence += chunk["message"]
+                if any(punct in last_sentence for punct in ".?!\n"):
+                    yield history
+                    speak(last_sentence)
+                    last_sentence = ""
+                else:
+                    yield history
 
             # Code
             if "language" in chunk:
@@ -67,10 +67,10 @@ with gr.Blocks() as demo:
               if chunk["output"] != "KeyboardInterrupt":
                 history[-1][1] += chunk["output"] + "\n"
                 yield history
-            if "active_line" in chunk and chunk["active_line"] == None:
-              history[-1][1] = history[-1][1].strip()
-              history[-1][1] += "\n```\n"
-              yield history
+            if "active_line" in chunk and chunk["active_line"] is None:
+                history[-1][1] = history[-1][1].strip()
+                history[-1][1] += "\n```\n"
+                yield history
 
         if last_sentence:
           speak(last_sentence)
